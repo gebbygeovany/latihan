@@ -33,8 +33,12 @@ module.exports = {
             const user = checkAuth(context)
             console.log(user)
 
-            if(args.body.trim()===''){
-                throw new Error('Post body must not be empty')
+            if (body.trim() === '') {
+                throw new UserInputError('body must not be empty', {
+                    errors: {
+                        body: 'body must not be empty'
+                    }
+                })
             }
 
             const newPost = new Post({

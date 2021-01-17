@@ -56,13 +56,6 @@ module.exports = {
             // Make Sure User Already exist
             // hash password and create auth token
 
-            const { valid, errors } = validateRegisterInput(username, password, confirmPassword, email)
-            if (!valid) {
-                throw new UserInputError('Errors', { errors })
-            }
-
-
-
             const user = await User.findOne({ username })
             if (user) {
                 throw new UserInputError('username is taken', {
@@ -71,6 +64,12 @@ module.exports = {
                     }
                 })
             }
+
+            const { valid, errors } = validateRegisterInput(username, password, confirmPassword, email)
+            if (!valid) {
+                throw new UserInputError('Errors', { errors })
+            }
+
             password = await bcrypt.hash(password, 12)
 
             const newUser = new User({
