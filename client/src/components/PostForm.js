@@ -15,7 +15,7 @@ export default function PostForm() {
         body: '',
     })
 
-    const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+    const [createPost] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
         update(proxy, result) {
             const data = proxy.readQuery({
